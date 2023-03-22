@@ -80,7 +80,13 @@ app.post('/urls/:id', (req,res) => {
   const newURL = req.body.longURL
   urlDatabase[id] = newURL
   res.redirect('/urls')
-} ) 
+})
+
+app.post('/login', (req,res) => {
+  const username = req.body.login
+  res.cookie('username', username)
+  res.redirect('/urls')
+})
  
 app.get("/u/:id", (req, res) => {
   let id = req.params.id
