@@ -17,11 +17,16 @@
         <a class="nav-item nav-link" href="/urls">My URLs</a>
         <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
       </div>
-      <!-- <div style="flex-grow: 1;"></div> -->
-    </div>
-    <form method="POST" action="/login">
-      <input type="text" id="login" name="login">
-      <button  class="btn btn-primary" type="submit">Login</button>
+      </div>
+      <% if (username) { %>
+          logged in as: , <%= username %>
+            <form method="POST" action="/logout">
+              <button  class="btn btn-danger" type="submit">Logout</button>
+            </form>
+        <% } else { %>
+      <a  href="/login" class="btn btn-primary" >Login</button>
     </form>
+      <a href="/register" class="btn btn-primary">Register</a>
+    <% } %>
   </nav>
 </header>
