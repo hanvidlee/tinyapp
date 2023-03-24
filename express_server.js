@@ -1,5 +1,6 @@
 const cookieParser = require('cookie-parser');
 const express = require("express");
+const bcrypt = require("bcryptjs");
 const app = express();
 const PORT = 8080;
 
@@ -100,7 +101,7 @@ app.get("/urls/:id", (req, res) => {
   if (!urlDatabase[id]){
     return res.status(400).send("id does not exist")
   }
-  if (cookieUserID !== urlDatabase[id].cookieUserID){
+  if (cookieUserID !== urlDatabase[id].userID){
     return res.status(403).send("user does not own URL")
   }
   const templateVars = { id: id, longURL: urlDatabase[id].longURL, user: users[cookieUserID] };
@@ -111,7 +112,7 @@ app.get("/urls/:id", (req, res) => {
 app.get("/u/:id", (req, res) => {
   let id = req.params.id;
   const longURL = urlDatabase[id].longURL;
-  if(id !== urlDatabase.id){
+  if (!urlDatabase[id]){
     return res.status(403).send("short URL does not exist")
   }
   res.redirect(longURL);
@@ -142,7 +143,7 @@ app.post('/urls/:id/delete', (req, res) => {
   if (!urlDatabase[id]){
     return res.status(400).send("id does not exist")
   }
-  if (cookieUserID !== urlDatabase[id].cookieUserID){
+  if (cookieUserID !== urlDatabase[id].userID){
     return res.status(403).send("user does not own URL")
   }
   delete urlDatabase[id];
@@ -159,7 +160,7 @@ app.post('/urls/:id/edit', (req, res) => {
   if (!urlDatabase[id]){
     return res.status(400).send("id does not exist")
   }
-  if (cookieUserID !== urlDatabase[id].cookieUserID){
+  if (cookieUserID !== urlDatabase[id].userID){
     return res.status(403).send("user does not own URL")
   }
   const newURL = req.body.longURL;
@@ -171,6 +172,7 @@ app.post('/urls/:id/edit', (req, res) => {
 app.get("/register", (req, res) => {
   const cookieUserID = req.cookies["user_id"]
   const templateVars = { user: users[cookieUserID] };
+  
   if(cookieUserID){
     return res.redirect('/urls')
   }
@@ -192,11 +194,10 @@ app.post("/register", (req, res) => {
   }
 
   const newId = generateShortUrl();
-
   users[newId] = {
     id: newId,
     email: email,
-    password: password
+    password: bcrypt.hashSync(password, 10)
   };
 
   res.cookie("user_id", newId);
@@ -220,7 +221,7 @@ app.post('/login', (req, res) => {
   const user = findUserByEmail(email)
 
   if (user && user.email === email) {
-    if (password === user.password){
+    if (bcrypt.compareSync(password, user.password)){
       res.cookie("user_id", user.id)
     } else {
       return res.status(403).send("password does not match")
