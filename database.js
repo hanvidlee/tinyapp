@@ -22,7 +22,7 @@ const users = {
     },
   };
 
-  module.export = {
+  module.exports = {
     users,
     urlDatabase
   }
