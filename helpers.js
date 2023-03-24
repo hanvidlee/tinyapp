@@ -20,17 +20,17 @@ function generateShortUrl() {
 }
 
 const urlsForUser = (id, urlDatabase) => {
-  const result = {}
-  for(let urlId in urlDatabase) {
-    if(urlDatabase[urlId].userID === id){
-      result[urlId] = urlDatabase[urlId].longURL 
+  const result = {};
+  for (let urlId in urlDatabase) {
+    if (urlDatabase[urlId].userID === id) {
+      result[urlId] = urlDatabase[urlId].longURL;
     }
   }
-  return result
-} 
+  return result;
+};
 
 module.exports = {
   findUserByEmail,
   generateShortUrl,
   urlsForUser
-}
+};

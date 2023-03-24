@@ -3,49 +3,35 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-      crossorigin="anonymous"
-    />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
 </head>
+
 <body>
-<%- include('./partials/_header') %>
-<div class="container">
+  <%- include('./partials/_header') %>
+    <div class="container">
 
-    <h1>Login</h1>
+      <h1>Login</h1>
 
-    <form method="POST" action="/login">
+      <form method="POST" action="/login">
         <div class="form-group">
-        <label for="email">Email:</label>
-        <input
-          style="width: 100%"
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Please enter your email">
+          <label for="email">Email:</label>
+          <input style="width: 100%" type="email" name="email" id="email" placeholder="Please enter your email">
         </div>
         <div class="form-group">
           <label for="password">Password:</label>
-          <input
-          style="width: 100%"
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Please enter your password">
-        
+          <input style="width: 100%" type="password" name="password" id="password"
+            placeholder="Please enter your password">
+
         </div>
 
         <button type="submit" class="btn btn-primary">login</button>
-    </form>
-</div>
-  </body>
+      </form>
+    </div>
+</body>
+
 </html>
