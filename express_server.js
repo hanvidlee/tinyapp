@@ -49,6 +49,11 @@ app.get("/urls", (req, res) => {
 // page to create a new url
 app.get("/urls/new", (req, res) => {
   const sessionUserID = req.session.user_id;
+
+  if(!sessionUserID) {
+    return res.redirect('/login')
+  }
+
   const templateVars = { user: users[sessionUserID] };
   res.render("urls_new", templateVars);
 });
